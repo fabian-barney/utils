@@ -6,6 +6,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## Unreleased
 
+## [v4.1.0] - 2026-02-07
+- Added deterministic `REF` resolution/validation guidance for setup/update
+  flows, including explicit fallback behavior.
+- Added a target-version compatibility preflight that compares current vs target
+  version and adapts update behavior using target docs.
+- Hardened setup mode detection to combine tracked-subtree and local-hint
+  signals with explicit ambiguous-state handling.
+- Added clean-working-tree preconditions and explicit push confirmation after
+  git-mode updates.
+- Hardened local-mode update and mode-switch safety with missing-safe untracking,
+  `.git/info/exclude` backup/restore requirements, and recovery verification.
+- Added explicit PR/MR review-comment handling workflow guidance (validity
+  judgment, response, fix-or-follow-up, and resolution ownership checks).
+
 ## [v4.0.0] - 2026-02-07
 - Breaking: renamed downstream guidance from
   `AI-RULES/CONSUMING_PROJECT.md` to `AI-RULES/DOWNSTREAM-PROJECT.md` and

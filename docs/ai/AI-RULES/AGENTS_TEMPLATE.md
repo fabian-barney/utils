@@ -19,11 +19,51 @@ To switch modes later, use "mode ai-rules local" or "mode ai-rules git".
 ai-rules is vendored under `docs/ai/AI-RULES/`.
 Define `<AI_RULES_PATH>` as `docs/ai/AI-RULES`.
 
+### Precondition: clean working tree
+Before any `git subtree add`/`git subtree pull` command:
+- Run `git status --porcelain`.
+- If output is empty, continue.
+- If output is not empty, do not run subtree commands yet.
+- Resolve the dirty state first by committing/stashing the current work, or
+  abort setup/update.
+
+### Resolve REF (deterministic)
+Use this before any `git subtree add/pull` command:
+- If the user specifies a tag (for example `v4.1.0`), validate it:
+  `git ls-remote --exit-code --refs --tags https://github.com/fabian-barney/ai-rules.git "refs/tags/<TAG>"`
+  - If valid, set `REF=<TAG>`.
+  - If invalid, stop and ask for a valid tag.
+- If the user explicitly asks for a branch, validate it:
+  `git ls-remote --exit-code --heads https://github.com/fabian-barney/ai-rules.git "refs/heads/<BRANCH>"`
+  - If valid, set `REF=<BRANCH>`.
+  - If invalid, stop and ask for a valid branch.
+- Otherwise resolve the latest tagged release:
+  `git ls-remote --refs --tags --sort="version:refname" https://github.com/fabian-barney/ai-rules.git "v*"`
+  - If at least one `v*` tag exists, set `REF` to the last tag in the sorted output.
+  - If no tags exist, set `REF=main`.
+- Before executing subtree commands, echo:
+  Using ai-rules REF: `<REF>`
+
+### Target-version preflight (required)
+Before running any setup/update subtree command, inspect the target ai-rules
+version and adapt behavior as needed:
+- Use the same `REF` that will be passed to `git subtree add`/`git subtree pull`.
+- Read target-version docs:
+  - `CHANGELOG.md`
+  - `AI-RULES/UPDATE.md`
+  - `AGENTS_TEMPLATE.md`
+- Inspect these files at `REF` using any reliable method (for example repository
+  web view, `git show`, or a temporary local checkout).
+- If the target version includes breaking or behavior-changing setup/update
+  guidance, follow the target-version guidance even if it differs from this
+  template.
+- Summarize the detected differences and planned command changes before running
+  `git subtree add`/`git subtree pull`.
+
 ### Mode: local (no commits, no push)
 1. Add the ai-rules subtree (creates a local commit):
-   `git subtree add --prefix <AI_RULES_PATH> https://github.com/fabian-barney/ai-rules.git REF --squash`
-   - Use the requested version tag; otherwise use the latest tagged release.
-     If no tags exist, use `main`.
+   `git subtree add --prefix <AI_RULES_PATH> https://github.com/fabian-barney/ai-rules.git <REF> --squash`
+   - Resolve `REF` using the deterministic rules above.
    - If Git requires an author identity, set it locally:
      git config --local user.name "Your Name"
      git config --local user.email "you@example.com"
@@ -53,6 +93,7 @@ Define `<AI_RULES_PATH>` as `docs/ai/AI-RULES`.
 5. Create a local overlay for project-specific rules (recommended):
    AI_PROJECT.md
    Note: keep this outside `docs/ai/` so subtree updates do not overwrite it.
+   In local mode, keep `AI_PROJECT.md` local-only (excluded from VCS).
 6. Create a project lessons learned area (recommended):
    docs/ai/LESSONS_LEARNED/LESSONS_LEARNED.md
    See `AI-RULES/DOWNSTREAM-PROJECT.md` for guidance.
@@ -75,9 +116,8 @@ Local-only update note:
 
 ### Mode: git (tracked in repo)
 1. Add the ai-rules subtree:
-   `git subtree add --prefix <AI_RULES_PATH> https://github.com/fabian-barney/ai-rules.git REF --squash`
-   - Use the requested version tag; otherwise use the latest tagged release.
-     If no tags exist, use `main`.
+   `git subtree add --prefix <AI_RULES_PATH> https://github.com/fabian-barney/ai-rules.git <REF> --squash`
+   - Resolve `REF` using the deterministic rules above.
    - If Git requires an author identity, set it locally:
      git config --local user.name "Your Name"
      git config --local user.email "you@example.com"
@@ -96,9 +136,10 @@ Local-only update note:
      after explicit confirmation (for example, `git reset --hard`).
 2. Baseline entry point (after subtree add):
    `<AI_RULES_PATH>/AI.md`
-3. Create a local overlay for project-specific rules (recommended):
+3. Create a project overlay for project-specific rules (recommended):
    AI_PROJECT.md
    Note: keep this outside `docs/ai/` so subtree updates do not overwrite it.
+   In git mode, keep `AI_PROJECT.md` tracked so the team shares the overlay.
 4. Create a project lessons learned area (recommended):
    docs/ai/LESSONS_LEARNED/LESSONS_LEARNED.md
    See `AI-RULES/DOWNSTREAM-PROJECT.md` for guidance.
@@ -115,7 +156,7 @@ Local-only update note:
 8. Commit and push the changes.
 
 Git update note:
-- Use `git subtree pull --prefix <AI_RULES_PATH> https://github.com/fabian-barney/ai-rules.git REF --squash`
+- Use `git subtree pull --prefix <AI_RULES_PATH> https://github.com/fabian-barney/ai-rules.git <REF> --squash`
   and commit the update.
 
 ## Entry Point Templates
