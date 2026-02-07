@@ -31,6 +31,23 @@ Guidance for version control system usage (Git and others).
 - If you have access to the issue tracker, add that summary directly to the
   linked issue/ticket.
 
+## PR/MR Review Comment Handling
+- Evaluate every review comment and explicitly judge whether it is valid or not
+  for the current scope.
+- Reply to every review comment with a respectful, concrete response. Do not
+  leave actionable comments unanswered.
+- If the comment is valid:
+  - Apply a fix in the same PR/MR when appropriate.
+  - If not fixed immediately, create or link a follow-up issue/ticket and
+    explain why deferral is acceptable.
+- If the comment is not valid, explain the reasoning with project-specific
+  context and keep the tone factual and professional.
+- When appropriate, mark the relevant review thread or conversation as resolved,
+  but first check downstream project rules for ownership (for example whether
+  the author or reviewer is expected to mark threads resolved).
+- Do not mark a review thread or conversation resolved by deleting discussion;
+  keep decisions auditable in the comment thread.
+
 ### PR/MR Summary Template (Code Reviewer Audience)
 ```md
 ## Implementation Summary
