@@ -1,0 +1,78 @@
+# utils-java
+
+`utils-java` is a small Java utility library for converting storage and transfer
+units across byte- and bit-based scales.
+
+It includes:
+
+- `ByteUnit` for byte units such as `BYTE`, `KiB`, `MiB`, `kB`, and `MB`
+- `BitUnit` for bit units such as `BIT`, `Kibit`, `Mibit`, `kbit`, and `Mbit`
+- cross-conversion helpers between byte and bit units
+- overloads that accept a custom word size instead of assuming `Byte.SIZE`
+
+## Requirements
+
+- Java 21
+- Maven wrapper included in the repository
+
+## Build
+
+On Unix-like systems:
+
+```bash
+./mvnw verify
+```
+
+On Windows:
+
+```powershell
+.\mvnw.cmd verify
+```
+
+## Usage
+
+```java
+import media.barney.utils.unit.BitUnit;
+import media.barney.utils.unit.ByteUnit;
+
+double kibibytes = ByteUnit.MB.toKiB(5);
+double megabits = ByteUnit.MIB.toMbit(2);
+double bytes = BitUnit.MBIT.toBytes(100);
+double gibibytes = BitUnit.GBIT.toGiB(64);
+```
+
+You can also convert values from one unit enum into another directly:
+
+```java
+double mib = ByteUnit.MIB.convert(1536, ByteUnit.KIB);
+double mbit = BitUnit.MBIT.convert(12, ByteUnit.MB);
+```
+
+If you need a custom word size, use the overloads that accept an `int`:
+
+```java
+double bytes = BitUnit.KIBIT.toBytes(8, 16);
+double bits = ByteUnit.KIB.toBits(4, 16);
+```
+
+## Supported Units
+
+`ByteUnit` supports:
+
+- Binary units: `BYTE`, `KIB`, `MIB`, `GIB`, `TIB`, `PIB`
+- Decimal units: `KB`, `MB`, `GB`, `TB`, `PB`
+
+`BitUnit` supports:
+
+- Binary units: `BIT`, `KIBIT`, `MIBIT`, `GIBIT`, `TIBIT`, `PIBIT`
+- Decimal units: `KBIT`, `MBIT`, `GBIT`, `TBIT`, `PBIT`
+
+## Notes
+
+- Conversions return `double`.
+- Byte-to-bit conversions assume an 8-bit byte by default.
+- The conversion helpers include overflow guards for multiplication-heavy paths.
+
+## License
+
+Apache License 2.0. See `LICENSE`.
