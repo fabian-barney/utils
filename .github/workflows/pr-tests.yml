@@ -10,6 +10,7 @@ on:
 
 permissions:
   contents: read
+  packages: read
 
 concurrency:
   group: pr-tests-${{ github.event.pull_request.number || github.ref }}
@@ -19,6 +20,9 @@ jobs:
   test:
     if: ${{ github.event.pull_request.draft == false }}
     runs-on: ubuntu-latest
+    env:
+      GITHUB_ACTOR: ${{ github.actor }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
       - name: Checkout
@@ -30,6 +34,9 @@ jobs:
           distribution: temurin
           java-version: "21"
           cache: maven
+          server-id: github
+          server-username: GITHUB_ACTOR
+          server-password: GITHUB_TOKEN
 
-      - name: Run tests
+      - name: Run Maven verify
         run: ./mvnw -B -ntp verify

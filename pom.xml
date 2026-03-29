@@ -5,6 +5,15 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>Barney Utils</name>
   <description>Utility classes you do not want to miss in any project.</description>
+  <properties>
+    <crap4java.version>0.1.2</crap4java.version>
+  </properties>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>github</id>
+      <url>https://maven.pkg.github.com/fabian-barney/crap4java</url>
+    </pluginRepository>
+  </pluginRepositories>
   <dependencies>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
@@ -29,6 +38,18 @@
         <configuration>
           <useModulePath>false</useModulePath>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>media.barney</groupId>
+        <artifactId>crap4java-maven-plugin</artifactId>
+        <version>${crap4java.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
