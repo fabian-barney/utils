@@ -28,10 +28,7 @@ package media.barney.utils.unit;
  */
 public enum BitUnit {
 
-        /** <pre>
-         * Bit (bit)
-         * 1 Bit
-         */
+        /** Bit, equal to 1 bit. */
         BIT {
 		@Override
 		public double toBits(double d) { return UnitInputValidator.requireNonNegativeFinite(d); }
@@ -44,10 +41,7 @@ public enum BitUnit {
 		}
 	},
 
-        /** <pre>
-         * Kibibit (Kibit)
-         * 2^10 Bit = 1.024 Bit
-         */
+        /** Kibibit (Kibit), equal to 2^10 bits. */
         KIBIT {
 		@Override
 		public double toBits(double d) { return safeMulti(UnitInputValidator.requireNonNegativeFinite(d), C_KIBIT); }
@@ -60,10 +54,7 @@ public enum BitUnit {
 		}
 	},
 
-        /** <pre>
-         * Mebibit (Mibit)
-         * 2^20 Bit = 1.024 * 1.024 Bit = 1.048.576 Bit
-         */
+        /** Mebibit (Mibit), equal to 2^20 bits. */
         MIBIT {
 		@Override
 		public double toBits(double d) { return safeMulti(UnitInputValidator.requireNonNegativeFinite(d), C_MIBIT); }
@@ -76,10 +67,7 @@ public enum BitUnit {
 		}
 	},
 
-        /** <pre>
-         * Gibibit (Gibit)
-         * 2^30 Bit = 1.024 * 1.024 * 1.024 Bit = 1.073.741.824 Bit
-         */
+        /** Gibibit (Gibit), equal to 2^30 bits. */
         GIBIT {
 		@Override
 		public double toBits(double d) { return safeMulti(UnitInputValidator.requireNonNegativeFinite(d), C_GIBIT); }
@@ -92,10 +80,7 @@ public enum BitUnit {
 		}
 	},
 
-        /** <pre>
-         * Tebibit (Tibit)
-         * 2^40 Bit = 1.024 * 1.024 * 1.024 * 1.024 Bit = 1.099.511.627.776 Bit
-         */
+        /** Tebibit (Tibit), equal to 2^40 bits. */
         TIBIT {
 		@Override
 		public double toBits(double d) { return safeMulti(UnitInputValidator.requireNonNegativeFinite(d), C_TIBIT); }
@@ -108,10 +93,7 @@ public enum BitUnit {
 		}
 	},
 
-        /** <pre>
-         * Pebibit (Pibit)
-         * 2^50 Bit = 1.024 * 1.024 * 1.024 * 1.024 * 1.024 Bit = 1.125.899.906.842.624 Bit
-         */
+        /** Pebibit (Pibit), equal to 2^50 bits. */
         PIBIT {
 		@Override
 		public double toBits(double d) { return safeMulti(UnitInputValidator.requireNonNegativeFinite(d), C_PIBIT); }
@@ -124,10 +106,7 @@ public enum BitUnit {
 		}
 	},
 
-        /** <pre>
-         * Kilobit (kbit)
-         * 10^3 Bit = 1.000 Bit
-         */
+        /** Kilobit (kbit), equal to 10^3 bits. */
         KBIT {
 		@Override
 		public double toBits(double d) { return safeMulti(UnitInputValidator.requireNonNegativeFinite(d), C_KBIT); }
@@ -140,10 +119,7 @@ public enum BitUnit {
 		}
 	},
 
-        /** <pre>
-         * Megabit (Mbit)
-         * 10^6 Bit = 1.000.000 Bit
-         */
+        /** Megabit (Mbit), equal to 10^6 bits. */
         MBIT {
 		@Override
 		public double toBits(double d) { return safeMulti(UnitInputValidator.requireNonNegativeFinite(d), C_MBIT); }
@@ -156,10 +132,7 @@ public enum BitUnit {
 		}
 	},
 
-        /** <pre>
-         * Gigabit (Gbit)
-         * 10^9 Bit = 1.000.000.000 Bit
-         */
+        /** Gigabit (Gbit), equal to 10^9 bits. */
         GBIT {
 		@Override
 		public double toBits(double d) { return safeMulti(UnitInputValidator.requireNonNegativeFinite(d), C_GBIT); }
@@ -172,10 +145,7 @@ public enum BitUnit {
 		}
 	},
 
-        /** <pre>
-         * Terabit (Tbit)
-         * 10^12 Bit = 1.000.000.000.000 Bit
-         */
+        /** Terabit (Tbit), equal to 10^12 bits. */
         TBIT {
 		@Override
 		public double toBits(double d) { return safeMulti(UnitInputValidator.requireNonNegativeFinite(d), C_TBIT); }
@@ -188,10 +158,7 @@ public enum BitUnit {
 		}
 	},
 
-        /** <pre>
-         * Petabit (Pbit)
-         * 10^15 Bit = 1.000.000.000.000.000 Bit
-         */
+        /** Petabit (Pbit), equal to 10^15 bits. */
         PBIT {
 		@Override
 		public double toBits(double d) { return safeMulti(UnitInputValidator.requireNonNegativeFinite(d), C_PBIT); }

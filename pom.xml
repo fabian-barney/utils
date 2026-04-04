@@ -1,14 +1,50 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>media.barney</groupId>
   <artifactId>utils-java</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>${revision}</version>
   <name>utils-java</name>
   <description>Utility classes you do not want to miss in any project.</description>
+  <url>https://github.com/fabian-barney/utils-java</url>
+  <licenses>
+    <license>
+      <name>Apache License 2.0</name>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <id>fabian-barney</id>
+      <name>Fabian Barney</name>
+      <email>fabian.barney@barney-media.com</email>
+      <url>https://github.com/fabian-barney</url>
+    </developer>
+  </developers>
+  <scm>
+    <connection>scm:git:https://github.com/fabian-barney/utils-java.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/fabian-barney/utils-java.git</developerConnection>
+    <url>https://github.com/fabian-barney/utils-java</url>
+    <tag>${scm.tag}</tag>
+  </scm>
   <properties>
+    <revision>0.0.1-SNAPSHOT</revision>
+    <scm.tag>HEAD</scm.tag>
     <crap-java.version>0.2.0</crap-java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <maven.compiler.release>21</maven.compiler.release>
+    <flatten.maven.plugin.version>1.7.3</flatten.maven.plugin.version>
+    <maven.source.plugin.version>3.3.1</maven.source.plugin.version>
+    <maven.javadoc.plugin.version>3.11.2</maven.javadoc.plugin.version>
+    <maven.gpg.plugin.version>3.2.8</maven.gpg.plugin.version>
+    <maven.enforcer.plugin.version>3.5.0</maven.enforcer.plugin.version>
+    <central.publishing.plugin.version>0.10.0</central.publishing.plugin.version>
+    <central.autoPublish>true</central.autoPublish>
+    <central.waitUntil>published</central.waitUntil>
+    <central.skipPublishing>true</central.skipPublishing>
   </properties>
   <pluginRepositories>
     <pluginRepository>
@@ -30,7 +66,7 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.15.0</version>
         <configuration>
-          <release>21</release>
+          <release>${maven.compiler.release}</release>
         </configuration>
       </plugin>
       <plugin>
@@ -55,4 +91,115 @@
       </plugin>
     </plugins>
   </build>
+  <profiles>
+    <profile>
+      <id>release</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>flatten-maven-plugin</artifactId>
+            <version>${flatten.maven.plugin.version}</version>
+            <configuration>
+              <flattenMode>oss</flattenMode>
+              <updatePomFile>true</updatePomFile>
+            </configuration>
+            <executions>
+              <execution>
+                <id>flatten-consumer-pom</id>
+                <phase>process-resources</phase>
+                <goals>
+                  <goal>flatten</goal>
+                </goals>
+              </execution>
+              <execution>
+                <id>clean-flattened-pom</id>
+                <phase>clean</phase>
+                <goals>
+                  <goal>clean</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <version>${maven.source.plugin.version}</version>
+            <executions>
+              <execution>
+                <id>attach-sources</id>
+                <goals>
+                  <goal>jar-no-fork</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>${maven.javadoc.plugin.version}</version>
+            <executions>
+              <execution>
+                <id>attach-javadocs</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>${maven.gpg.plugin.version}</version>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <passphraseEnvName>MAVEN_GPG_PASSPHRASE</passphraseEnvName>
+              <gpgArguments>
+                <arg>--pinentry-mode</arg>
+                <arg>loopback</arg>
+              </gpgArguments>
+            </configuration>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-enforcer-plugin</artifactId>
+            <version>${maven.enforcer.plugin.version}</version>
+            <executions>
+              <execution>
+                <id>require-release-version</id>
+                <goals>
+                  <goal>enforce</goal>
+                </goals>
+                <configuration>
+                  <rules>
+                    <requireReleaseVersion />
+                  </rules>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.sonatype.central</groupId>
+            <artifactId>central-publishing-maven-plugin</artifactId>
+            <version>${central.publishing.plugin.version}</version>
+            <extensions>true</extensions>
+            <configuration>
+              <publishingServerId>central</publishingServerId>
+              <autoPublish>${central.autoPublish}</autoPublish>
+              <waitUntil>${central.waitUntil}</waitUntil>
+              <skipPublishing>${central.skipPublishing}</skipPublishing>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>

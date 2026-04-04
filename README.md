@@ -73,6 +73,11 @@ double bits = ByteUnit.KIB.toBits(4, 16);
 - Byte-to-bit conversions assume 8 bits per byte by default.
 - The conversion helpers include overflow guards for multiplication-heavy paths.
 
+## Release
+
+See `RELEASING.md` for the Maven Central release workflow, required GitHub
+secrets, and rollback expectations.
+
 ## License
 
 Apache License 2.0. See `LICENSE`.

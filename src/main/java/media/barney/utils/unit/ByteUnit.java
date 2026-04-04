@@ -32,10 +32,7 @@ package media.barney.utils.unit;
  */
 public enum ByteUnit {
 
-	/** <pre>
-	 * Byte (B)
-	 * 1 Byte
-	 */
+	/** Byte (B), equal to 1 byte. */
 	BYTE {
 		@Override
 		public double toBytes(double d) { return UnitInputValidator.requireNonNegativeFinite(d); }
@@ -48,10 +45,7 @@ public enum ByteUnit {
 		}
 	},
 
-	/** <pre>
-	 * Kibibyte (KiB)
-	 * 2^10 Byte = 1.024 Byte
-	 */
+	/** Kibibyte (KiB), equal to 2^10 bytes. */
 	KIB {
 		@Override
 		public double toBytes(double d) { return safeMulti(UnitInputValidator.requireNonNegativeFinite(d), C_KIB); }
@@ -64,10 +58,7 @@ public enum ByteUnit {
 		}
 	},
 
-	/** <pre>
-	 * Mebibyte (MiB)
-	 * 2^20 Byte = 1.024 * 1.024 Byte = 1.048.576 Byte
-	 */
+	/** Mebibyte (MiB), equal to 2^20 bytes. */
 	MIB {
 		@Override
 		public double toBytes(double d) { return safeMulti(UnitInputValidator.requireNonNegativeFinite(d), C_MIB); }
@@ -80,10 +71,7 @@ public enum ByteUnit {
 		}
 	},
 
-	/** <pre>
-	 * Gibibyte (GiB)
-	 * 2^30 Byte = 1.024 * 1.024 * 1.024 Byte = 1.073.741.824 Byte
-	 */
+	/** Gibibyte (GiB), equal to 2^30 bytes. */
 	GIB {
 		@Override
 		public double toBytes(double d) { return safeMulti(UnitInputValidator.requireNonNegativeFinite(d), C_GIB); }
@@ -96,10 +84,7 @@ public enum ByteUnit {
 		}
 	},
 
-	/** <pre>
-	 * Tebibyte (TiB)
-	 * 2^40 Byte = 1.024 * 1.024 * 1.024 * 1.024 Byte = 1.099.511.627.776 Byte
-	 */
+	/** Tebibyte (TiB), equal to 2^40 bytes. */
 	TIB {
 		@Override
 		public double toBytes(double d) { return safeMulti(UnitInputValidator.requireNonNegativeFinite(d), C_TIB); }
@@ -112,10 +97,7 @@ public enum ByteUnit {
 		}
 	},
 
-	/** <pre>
-	 * Pebibyte (PiB)
-	 * 2^50 Byte = 1.024 * 1.024 * 1.024 * 1.024 * 1.024 Byte = 1.125.899.906.842.624 Byte
-	 */
+	/** Pebibyte (PiB), equal to 2^50 bytes. */
 	PIB {
 		@Override
 		public double toBytes(double d) { return safeMulti(UnitInputValidator.requireNonNegativeFinite(d), C_PIB); }
@@ -128,10 +110,7 @@ public enum ByteUnit {
 		}
 	},
 
-	/** <pre>
-	 * Kilobyte (kB)
-	 * 10^3 Byte = 1.000 Byte
-	 */
+	/** Kilobyte (kB), equal to 10^3 bytes. */
 	KB {
 		@Override
 		public double toBytes(double d) { return safeMulti(UnitInputValidator.requireNonNegativeFinite(d), C_KB); }
@@ -144,10 +123,7 @@ public enum ByteUnit {
 		}
 	},
 
-	/** <pre>
-	 * Megabyte (MB)
-	 * 10^6 Byte = 1.000.000 Byte
-	 */
+	/** Megabyte (MB), equal to 10^6 bytes. */
 	MB {
 		@Override
 		public double toBytes(double d) { return safeMulti(UnitInputValidator.requireNonNegativeFinite(d), C_MB); }
@@ -160,10 +136,7 @@ public enum ByteUnit {
 		}
 	},
 
-	/** <pre>
-	 * Gigabyte (GB)
-	 * 10^9 Byte = 1.000.000.000 Byte
-	 */
+	/** Gigabyte (GB), equal to 10^9 bytes. */
 	GB {
 		@Override
 		public double toBytes(double d) { return safeMulti(UnitInputValidator.requireNonNegativeFinite(d), C_GB); }
@@ -176,10 +149,7 @@ public enum ByteUnit {
 		}
 	},
 
-	/** <pre>
-	 * Terabyte (TB)
-	 * 10^12 Byte = 1.000.000.000.000 Byte
-	 */
+	/** Terabyte (TB), equal to 10^12 bytes. */
 	TB {
 		@Override
 		public double toBytes(double d) { return safeMulti(UnitInputValidator.requireNonNegativeFinite(d), C_TB); }
@@ -192,10 +162,7 @@ public enum ByteUnit {
 		}
 	},
 
-	/** <pre>
-	 * Petabyte (PB)
-	 * 10^15 Byte = 1.000.000.000.000.000 Byte
-	 */
+	/** Petabyte (PB), equal to 10^15 bytes. */
 	PB {
 		@Override
 		public double toBytes(double d) { return safeMulti(UnitInputValidator.requireNonNegativeFinite(d), C_PB); }
