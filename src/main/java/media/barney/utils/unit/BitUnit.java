@@ -357,7 +357,7 @@ public enum BitUnit {
 
         /**
          * Converts a value expressed in the supplied {@link ByteUnit} to this bit unit
-         * assuming an 8-bit word size.
+         * assuming 8 bits per byte ({@link java.lang.Byte#SIZE}).
          *
          * @param d the value to convert
          * @param u the byte unit the value is expressed in
