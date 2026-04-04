@@ -8,7 +8,7 @@ It includes:
 - `ByteUnit` for byte units such as `BYTE`, `KIB`, `MIB`, `KB`, and `MB`
 - `BitUnit` for bit units such as `BIT`, `KIBIT`, `MIBIT`, `KBIT`, and `MBIT`
 - cross-conversion helpers between byte and bit units
-- overloads that accept a custom word size instead of assuming `Byte.SIZE`
+- overloads that accept a custom bits-per-byte value instead of assuming `Byte.SIZE`
 
 ## Requirements
 
@@ -48,7 +48,7 @@ double mib = ByteUnit.MIB.convert(1536, ByteUnit.KIB);
 double mbit = BitUnit.MBIT.convert(12, ByteUnit.MB);
 ```
 
-If you need a custom word size, use the overloads that accept an `int`:
+If you need a custom bits-per-byte value, use the overloads that accept an `int`:
 
 ```java
 double bytes = BitUnit.KIBIT.toBytes(8, 16);
@@ -70,7 +70,7 @@ double bits = ByteUnit.KIB.toBits(4, 16);
 ## Notes
 
 - Conversions return `double`.
-- Byte-to-bit conversions assume an 8-bit byte by default.
+- Byte-to-bit conversions assume 8 bits per byte by default.
 - The conversion helpers include overflow guards for multiplication-heavy paths.
 
 ## License
