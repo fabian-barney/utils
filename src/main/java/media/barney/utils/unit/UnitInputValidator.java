@@ -1,0 +1,43 @@
+package media.barney.utils.unit;
+
+/*
+ * Copyright 2011 Fabian Barney
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import java.util.Objects;
+
+final class UnitInputValidator {
+
+    private UnitInputValidator() {
+    }
+
+    static double requireNonNegativeFinite(double value) {
+        if (value < 0 || !Double.isFinite(value)) {
+            throw new IllegalArgumentException("value must be a non-negative finite number");
+        }
+        return value;
+    }
+
+    static int requirePositiveBitsPerByte(int bitsPerByte) {
+        if (bitsPerByte <= 0) {
+            throw new IllegalArgumentException("bitsPerByte must be greater than 0");
+        }
+        return bitsPerByte;
+    }
+
+    static <T> T requireNonNull(T value, String name) {
+        return Objects.requireNonNull(value, name);
+    }
+}

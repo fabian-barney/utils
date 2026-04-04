@@ -21,7 +21,8 @@ package media.barney.utils.unit;
  * Defines binary (power-of-two) and decimal (power-of-ten) bit units and
  * provides helper methods for converting between them as well as to the
  * corresponding {@link ByteUnit byte-based units}. All conversions operate on
- * {@code double} values and guard against overflow using {@link #safeMulti(double, double)}.
+ * {@code double} values, require non-negative finite inputs, and guard against
+ * overflow using {@link #safeMulti(double, double)}.
  *
  * @author Fabian Barney
  */
@@ -33,10 +34,14 @@ public enum BitUnit {
          */
         BIT {
 		@Override
-		public double toBits(double d) { return d; }
+		public double toBits(double d) { return UnitInputValidator.requireNonNegativeFinite(d); }
 
 		@Override
-		public double convert(double d, BitUnit u) { return u.toBits(d); }
+		public double convert(double d, BitUnit u) {
+			BitUnit sourceUnit = UnitInputValidator.requireNonNull(u, "u");
+			double value = UnitInputValidator.requireNonNegativeFinite(d);
+			return sourceUnit.toBits(value);
+		}
 	},
 
         /** <pre>
@@ -45,10 +50,14 @@ public enum BitUnit {
          */
         KIBIT {
 		@Override
-		public double toBits(double d) { return safeMulti(d, C_KIBIT); }
+		public double toBits(double d) { return safeMulti(UnitInputValidator.requireNonNegativeFinite(d), C_KIBIT); }
 
 		@Override
-		public double convert(double d, BitUnit u) { return u.toKibit(d); }
+		public double convert(double d, BitUnit u) {
+			BitUnit sourceUnit = UnitInputValidator.requireNonNull(u, "u");
+			double value = UnitInputValidator.requireNonNegativeFinite(d);
+			return sourceUnit.toKibit(value);
+		}
 	},
 
         /** <pre>
@@ -57,10 +66,14 @@ public enum BitUnit {
          */
         MIBIT {
 		@Override
-		public double toBits(double d) { return safeMulti(d, C_MIBIT); }
+		public double toBits(double d) { return safeMulti(UnitInputValidator.requireNonNegativeFinite(d), C_MIBIT); }
 
 		@Override
-		public double convert(double d, BitUnit u) { return u.toMibit(d); }
+		public double convert(double d, BitUnit u) {
+			BitUnit sourceUnit = UnitInputValidator.requireNonNull(u, "u");
+			double value = UnitInputValidator.requireNonNegativeFinite(d);
+			return sourceUnit.toMibit(value);
+		}
 	},
 
         /** <pre>
@@ -69,10 +82,14 @@ public enum BitUnit {
          */
         GIBIT {
 		@Override
-		public double toBits(double d) { return safeMulti(d, C_GIBIT); }
+		public double toBits(double d) { return safeMulti(UnitInputValidator.requireNonNegativeFinite(d), C_GIBIT); }
 
 		@Override
-		public double convert(double d, BitUnit u) { return u.toGibit(d); }
+		public double convert(double d, BitUnit u) {
+			BitUnit sourceUnit = UnitInputValidator.requireNonNull(u, "u");
+			double value = UnitInputValidator.requireNonNegativeFinite(d);
+			return sourceUnit.toGibit(value);
+		}
 	},
 
         /** <pre>
@@ -81,10 +98,14 @@ public enum BitUnit {
          */
         TIBIT {
 		@Override
-		public double toBits(double d) { return safeMulti(d, C_TIBIT); }
+		public double toBits(double d) { return safeMulti(UnitInputValidator.requireNonNegativeFinite(d), C_TIBIT); }
 
 		@Override
-		public double convert(double d, BitUnit u) { return u.toTibit(d); }
+		public double convert(double d, BitUnit u) {
+			BitUnit sourceUnit = UnitInputValidator.requireNonNull(u, "u");
+			double value = UnitInputValidator.requireNonNegativeFinite(d);
+			return sourceUnit.toTibit(value);
+		}
 	},
 
         /** <pre>
@@ -93,10 +114,14 @@ public enum BitUnit {
          */
         PIBIT {
 		@Override
-		public double toBits(double d) { return safeMulti(d, C_PIBIT); }
+		public double toBits(double d) { return safeMulti(UnitInputValidator.requireNonNegativeFinite(d), C_PIBIT); }
 
 		@Override
-		public double convert(double d, BitUnit u) { return u.toPibit(d); }
+		public double convert(double d, BitUnit u) {
+			BitUnit sourceUnit = UnitInputValidator.requireNonNull(u, "u");
+			double value = UnitInputValidator.requireNonNegativeFinite(d);
+			return sourceUnit.toPibit(value);
+		}
 	},
 
         /** <pre>
@@ -105,10 +130,14 @@ public enum BitUnit {
          */
         KBIT {
 		@Override
-		public double toBits(double d) { return safeMulti(d, C_KBIT); }
+		public double toBits(double d) { return safeMulti(UnitInputValidator.requireNonNegativeFinite(d), C_KBIT); }
 
 		@Override
-		public double convert(double d, BitUnit u) { return u.toKbit(d); }
+		public double convert(double d, BitUnit u) {
+			BitUnit sourceUnit = UnitInputValidator.requireNonNull(u, "u");
+			double value = UnitInputValidator.requireNonNegativeFinite(d);
+			return sourceUnit.toKbit(value);
+		}
 	},
 
         /** <pre>
@@ -117,10 +146,14 @@ public enum BitUnit {
          */
         MBIT {
 		@Override
-		public double toBits(double d) { return safeMulti(d, C_MBIT); }
+		public double toBits(double d) { return safeMulti(UnitInputValidator.requireNonNegativeFinite(d), C_MBIT); }
 
 		@Override
-		public double convert(double d, BitUnit u) { return u.toMbit(d); }
+		public double convert(double d, BitUnit u) {
+			BitUnit sourceUnit = UnitInputValidator.requireNonNull(u, "u");
+			double value = UnitInputValidator.requireNonNegativeFinite(d);
+			return sourceUnit.toMbit(value);
+		}
 	},
 
         /** <pre>
@@ -129,10 +162,14 @@ public enum BitUnit {
          */
         GBIT {
 		@Override
-		public double toBits(double d) { return safeMulti(d, C_GBIT); }
+		public double toBits(double d) { return safeMulti(UnitInputValidator.requireNonNegativeFinite(d), C_GBIT); }
 
 		@Override
-		public double convert(double d, BitUnit u) { return u.toGbit(d); }
+		public double convert(double d, BitUnit u) {
+			BitUnit sourceUnit = UnitInputValidator.requireNonNull(u, "u");
+			double value = UnitInputValidator.requireNonNegativeFinite(d);
+			return sourceUnit.toGbit(value);
+		}
 	},
 
         /** <pre>
@@ -141,10 +178,14 @@ public enum BitUnit {
          */
         TBIT {
 		@Override
-		public double toBits(double d) { return safeMulti(d, C_TBIT); }
+		public double toBits(double d) { return safeMulti(UnitInputValidator.requireNonNegativeFinite(d), C_TBIT); }
 
 		@Override
-		public double convert(double d, BitUnit u) { return u.toTbit(d); }
+		public double convert(double d, BitUnit u) {
+			BitUnit sourceUnit = UnitInputValidator.requireNonNull(u, "u");
+			double value = UnitInputValidator.requireNonNegativeFinite(d);
+			return sourceUnit.toTbit(value);
+		}
 	},
 
         /** <pre>
@@ -153,10 +194,14 @@ public enum BitUnit {
          */
         PBIT {
 		@Override
-		public double toBits(double d) { return safeMulti(d, C_PBIT); }
+		public double toBits(double d) { return safeMulti(UnitInputValidator.requireNonNegativeFinite(d), C_PBIT); }
 
 		@Override
-		public double convert(double d, BitUnit u) { return u.toPbit(d); }
+		public double convert(double d, BitUnit u) {
+			BitUnit sourceUnit = UnitInputValidator.requireNonNull(u, "u");
+			double value = UnitInputValidator.requireNonNegativeFinite(d);
+			return sourceUnit.toPbit(value);
+		}
 	};
 
 
@@ -183,7 +228,7 @@ public enum BitUnit {
 		}
 		
 		if (d < -limit) {
-			return Double.MIN_VALUE;
+			return -Double.MAX_VALUE;
 		}
 
 		return d * multi;
@@ -312,7 +357,7 @@ public enum BitUnit {
 
         /**
          * Converts a value expressed in the supplied {@link ByteUnit} to this bit unit
-         * assuming an 8-bit word size.
+         * assuming 8 bits per byte ({@link java.lang.Byte#SIZE}).
          *
          * @param d the value to convert
          * @param u the byte unit the value is expressed in
@@ -324,15 +369,18 @@ public enum BitUnit {
 
         /**
          * Converts a value expressed in the supplied {@link ByteUnit} to this bit unit
-         * using the provided word size.
+         * using the provided bits-per-byte value.
          *
          * @param d the value to convert
          * @param u the byte unit the value is expressed in
-         * @param wordSize the number of bits in a word, typically {@link java.lang.Byte#SIZE}
+         * @param bitsPerByte the number of bits in one byte, typically {@link java.lang.Byte#SIZE}
          * @return the converted value expressed in this unit
          */
-        public final double convert(double d, ByteUnit u, int wordSize){
-                double bits = safeMulti(u.toBytes(d), wordSize);
+        public final double convert(double d, ByteUnit u, int bitsPerByte){
+                ByteUnit sourceUnit = UnitInputValidator.requireNonNull(u, "u");
+                double value = UnitInputValidator.requireNonNegativeFinite(d);
+                int validatedBitsPerByte = UnitInputValidator.requirePositiveBitsPerByte(bitsPerByte);
+                double bits = safeMulti(sourceUnit.toBytes(value), validatedBitsPerByte);
                 return convert(bits, BIT);
         }
 
@@ -353,14 +401,14 @@ public enum BitUnit {
 	}
 
 	/**
-	 * Converts a value in the current unit to bytes using the provided word size.
+	 * Converts a value in the current unit to bytes using the provided bits-per-byte value.
 	 *
 	 * @param d the value to convert
-	 * @param wordSize the number of bits in a word, typically {@link java.lang.Byte#SIZE}
+	 * @param bitsPerByte the number of bits in one byte, typically {@link java.lang.Byte#SIZE}
 	 * @return the converted value expressed in bytes
 	 */
-	public final double toBytes(double d, int wordSize){
-		return ByteUnit.BYTE.convert(d, this, wordSize);
+	public final double toBytes(double d, int bitsPerByte){
+		return ByteUnit.BYTE.convert(d, this, bitsPerByte);
 	}
 
 
@@ -417,58 +465,58 @@ public enum BitUnit {
 
 
 	/**
-	 * Converts a value in the current unit to kibibytes using the provided word size.
+	 * Converts a value in the current unit to kibibytes using the provided bits-per-byte value.
 	 *
 	 * @param d the value to convert
-	 * @param wordSize the number of bits in a word, typically {@link java.lang.Byte#SIZE}
+	 * @param bitsPerByte the number of bits in one byte, typically {@link java.lang.Byte#SIZE}
 	 * @return the converted value expressed in kibibytes
 	 */
-	public final double toKiB(double d, int wordSize){
-		return ByteUnit.KIB.convert(d, this, wordSize);
+	public final double toKiB(double d, int bitsPerByte){
+		return ByteUnit.KIB.convert(d, this, bitsPerByte);
 	}
 
 	/**
-	 * Converts a value in the current unit to mebibytes using the provided word size.
+	 * Converts a value in the current unit to mebibytes using the provided bits-per-byte value.
 	 *
 	 * @param d the value to convert
-	 * @param wordSize the number of bits in a word, typically {@link java.lang.Byte#SIZE}
+	 * @param bitsPerByte the number of bits in one byte, typically {@link java.lang.Byte#SIZE}
 	 * @return the converted value expressed in mebibytes
 	 */
-	public final double toMiB(double d, int wordSize) {
-		return ByteUnit.MIB.convert(d, this, wordSize);
+	public final double toMiB(double d, int bitsPerByte) {
+		return ByteUnit.MIB.convert(d, this, bitsPerByte);
 	}
 
 	/**
-	 * Converts a value in the current unit to gibibytes using the provided word size.
+	 * Converts a value in the current unit to gibibytes using the provided bits-per-byte value.
 	 *
 	 * @param d the value to convert
-	 * @param wordSize the number of bits in a word, typically {@link java.lang.Byte#SIZE}
+	 * @param bitsPerByte the number of bits in one byte, typically {@link java.lang.Byte#SIZE}
 	 * @return the converted value expressed in gibibytes
 	 */
-	public final double toGiB(double d, int wordSize) {
-		return ByteUnit.GIB.convert(d, this, wordSize);
+	public final double toGiB(double d, int bitsPerByte) {
+		return ByteUnit.GIB.convert(d, this, bitsPerByte);
 	}
 
 	/**
-	 * Converts a value in the current unit to tebibytes using the provided word size.
+	 * Converts a value in the current unit to tebibytes using the provided bits-per-byte value.
 	 *
 	 * @param d the value to convert
-	 * @param wordSize the number of bits in a word, typically {@link java.lang.Byte#SIZE}
+	 * @param bitsPerByte the number of bits in one byte, typically {@link java.lang.Byte#SIZE}
 	 * @return the converted value expressed in tebibytes
 	 */
-	public final double toTiB(double d, int wordSize) {
-		return ByteUnit.TIB.convert(d, this, wordSize);
+	public final double toTiB(double d, int bitsPerByte) {
+		return ByteUnit.TIB.convert(d, this, bitsPerByte);
 	}
 
 	/**
-	 * Converts a value in the current unit to pebibytes using the provided word size.
+	 * Converts a value in the current unit to pebibytes using the provided bits-per-byte value.
 	 *
 	 * @param d the value to convert
-	 * @param wordSize the number of bits in a word, typically {@link java.lang.Byte#SIZE}
+	 * @param bitsPerByte the number of bits in one byte, typically {@link java.lang.Byte#SIZE}
 	 * @return the converted value expressed in pebibytes
 	 */
-	public final double toPiB(double d, int wordSize) {
-		return ByteUnit.PIB.convert(d, this, wordSize);
+	public final double toPiB(double d, int bitsPerByte) {
+		return ByteUnit.PIB.convert(d, this, bitsPerByte);
 	}
 
 
@@ -526,58 +574,58 @@ public enum BitUnit {
 
 
 	/**
-	 * Converts a value in the current unit to kilobytes using the provided word size.
+	 * Converts a value in the current unit to kilobytes using the provided bits-per-byte value.
 	 *
 	 * @param d the value to convert
-	 * @param wordSize the number of bits in a word, typically {@link java.lang.Byte#SIZE}
+	 * @param bitsPerByte the number of bits in one byte, typically {@link java.lang.Byte#SIZE}
 	 * @return the converted value expressed in kilobytes
 	 */
-	public final double toKB(double d, int wordSize) {
-		return ByteUnit.KB.convert(d, this, wordSize);
+	public final double toKB(double d, int bitsPerByte) {
+		return ByteUnit.KB.convert(d, this, bitsPerByte);
 	}
 
 	/**
-	 * Converts a value in the current unit to megabytes using the provided word size.
+	 * Converts a value in the current unit to megabytes using the provided bits-per-byte value.
 	 *
 	 * @param d the value to convert
-	 * @param wordSize the number of bits in a word, typically {@link java.lang.Byte#SIZE}
+	 * @param bitsPerByte the number of bits in one byte, typically {@link java.lang.Byte#SIZE}
 	 * @return the converted value expressed in megabytes
 	 */
-	public final double toMB(double d, int wordSize) {
-		return ByteUnit.MB.convert(d, this, wordSize);
+	public final double toMB(double d, int bitsPerByte) {
+		return ByteUnit.MB.convert(d, this, bitsPerByte);
 	}
 
 	/**
-	 * Converts a value in the current unit to gigabytes using the provided word size.
+	 * Converts a value in the current unit to gigabytes using the provided bits-per-byte value.
 	 *
 	 * @param d the value to convert
-	 * @param wordSize the number of bits in a word, typically {@link java.lang.Byte#SIZE}
+	 * @param bitsPerByte the number of bits in one byte, typically {@link java.lang.Byte#SIZE}
 	 * @return the converted value expressed in gigabytes
 	 */
-	public final double toGB(double d, int wordSize) {
-		return ByteUnit.GB.convert(d, this, wordSize);
+	public final double toGB(double d, int bitsPerByte) {
+		return ByteUnit.GB.convert(d, this, bitsPerByte);
 	}
 
 	/**
-	 * Converts a value in the current unit to terabytes using the provided word size.
+	 * Converts a value in the current unit to terabytes using the provided bits-per-byte value.
 	 *
 	 * @param d the value to convert
-	 * @param wordSize the number of bits in a word, typically {@link java.lang.Byte#SIZE}
+	 * @param bitsPerByte the number of bits in one byte, typically {@link java.lang.Byte#SIZE}
 	 * @return the converted value expressed in terabytes
 	 */
-	public final double toTB(double d, int wordSize) {
-		return ByteUnit.TB.convert(d, this, wordSize);
+	public final double toTB(double d, int bitsPerByte) {
+		return ByteUnit.TB.convert(d, this, bitsPerByte);
 	}
 
 	/**
-	 * Converts a value in the current unit to petabytes using the provided word size.
+	 * Converts a value in the current unit to petabytes using the provided bits-per-byte value.
 	 *
 	 * @param d the value to convert
-	 * @param wordSize the number of bits in a word, typically {@link java.lang.Byte#SIZE}
+	 * @param bitsPerByte the number of bits in one byte, typically {@link java.lang.Byte#SIZE}
 	 * @return the converted value expressed in petabytes
 	 */
-	public final double toPB(double d, int wordSize) {
-		return ByteUnit.PB.convert(d, this, wordSize);
+	public final double toPB(double d, int bitsPerByte) {
+		return ByteUnit.PB.convert(d, this, bitsPerByte);
 	}
 
 

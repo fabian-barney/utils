@@ -2,6 +2,7 @@ package media.barney.utils.unit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.stream.Stream;
 
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.api.function.Executable;
 
 class ByteUnitTest {
 
@@ -20,6 +22,14 @@ class ByteUnitTest {
 
     private static Stream<ByteUnit> allByteUnits() {
         return Stream.of(ByteUnit.values());
+    }
+
+    private static Stream<Double> invalidValues() {
+        return Stream.of(-1d, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, Double.NaN);
+    }
+
+    private static Stream<Integer> invalidBitsPerByteValues() {
+        return Stream.of(0, -1, Integer.MIN_VALUE);
     }
 
     private static Stream<Arguments> byteAndBitUnits() {
@@ -174,7 +184,32 @@ class ByteUnitTest {
     @DisplayName("safeMulti handles multiplication extremes")
     void safeMultiCoversBranches(ByteUnit unit) {
         assertEquals(Double.MAX_VALUE, ByteUnit.safeMulti(Double.MAX_VALUE, 2), DELTA);
-        assertEquals(Double.MIN_VALUE, ByteUnit.safeMulti(-Double.MAX_VALUE, 2), DELTA);
+        assertEquals(-Double.MAX_VALUE, ByteUnit.safeMulti(-Double.MAX_VALUE, 2), DELTA);
         assertEquals(6d, ByteUnit.safeMulti(2d, 3d), DELTA);
+    }
+
+    @ParameterizedTest(name = "ByteUnit rejects invalid numeric value {0}")
+    @MethodSource("invalidValues")
+    @DisplayName("ByteUnit public entry points reject negative and non-finite values")
+    void rejectsInvalidValuesInByteUnitEntryPoints(double value) {
+        Stream.of(
+                (Executable) () -> ByteUnit.KIB.toBytes(value),
+                () -> ByteUnit.MIB.toKiB(value),
+                () -> ByteUnit.GIB.convert(value, ByteUnit.MIB),
+                () -> ByteUnit.TIB.convert(value, BitUnit.KIBIT),
+                () -> ByteUnit.PB.toBits(value))
+            .forEach(executable -> assertThrows(IllegalArgumentException.class, executable));
+    }
+
+    @ParameterizedTest(name = "ByteUnit rejects invalid bits-per-byte value {0}")
+    @MethodSource("invalidBitsPerByteValues")
+    @DisplayName("ByteUnit cross conversions reject non-positive bits per byte")
+    void rejectsInvalidBitsPerByteValues(int bitsPerByte) {
+        Stream.of(
+                (Executable) () -> ByteUnit.BYTE.convert(1d, BitUnit.BIT, bitsPerByte),
+                () -> ByteUnit.KIB.toBits(1d, bitsPerByte),
+                () -> ByteUnit.MIB.toKibit(1d, bitsPerByte),
+                () -> ByteUnit.GIB.toMbit(1d, bitsPerByte))
+            .forEach(executable -> assertThrows(IllegalArgumentException.class, executable));
     }
 }
