@@ -51,7 +51,7 @@ jobs:
           cache: maven
 
       - name: Run crap-java gate
-        run: ./mvnw -B -ntp verify
+        run: ./mvnw -B -ntp -P!quality-gates-all,quality-gate-crap verify
 
   cognitive-java:
     name: cognitive-java Gate
@@ -70,4 +70,4 @@ jobs:
           cache: maven
 
       - name: Run cognitive-java gate
-        run: ./mvnw -B -ntp cognitive-java:check
+        run: ./mvnw -B -ntp -P!quality-gates-all,quality-gate-cognitive verify

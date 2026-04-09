@@ -20,28 +20,40 @@ It includes:
 On Unix-like systems:
 
 ```bash
-./mvnw verify
+./mvnw -B -ntp verify
 ```
 
 On Windows:
 
 ```powershell
-.\mvnw.cmd verify
+.\mvnw.cmd -B -ntp verify
 ```
 
 `verify` runs the library tests plus the shared `crap-java` and
 `cognitive-java` gates.
 
-To run only the Cognitive Complexity gate on Unix-like systems:
+To isolate only the `crap-java` gate on Unix-like systems:
 
 ```bash
-./mvnw -B -ntp cognitive-java:check
+./mvnw -B -ntp -P!quality-gates-all,quality-gate-crap verify
 ```
 
 On Windows:
 
 ```powershell
-.\mvnw.cmd -B -ntp cognitive-java:check
+.\mvnw.cmd -B -ntp -P!quality-gates-all,quality-gate-crap verify
+```
+
+To isolate only the `cognitive-java` gate on Unix-like systems:
+
+```bash
+./mvnw -B -ntp -P!quality-gates-all,quality-gate-cognitive verify
+```
+
+On Windows:
+
+```powershell
+.\mvnw.cmd -B -ntp -P!quality-gates-all,quality-gate-cognitive verify
 ```
 
 To run the static nullness analysis locally, enable the NullAway profile:
