@@ -48,8 +48,8 @@
     <central.skipPublishing>true</central.skipPublishing>
     <jacoco.version>0.8.14</jacoco.version>
     <jspecify.version>1.0.0</jspecify.version>
-    <errorprone.version>2.48.0</errorprone.version>
-    <nullaway.version>0.13.1</nullaway.version>
+    <errorprone.version>2.49.0</errorprone.version>
+    <nullaway.version>0.13.2</nullaway.version>
   </properties>
   <dependencies>
     <dependency>
